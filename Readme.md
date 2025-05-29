@@ -4,10 +4,10 @@ A simple web tool to catch and inspect HTTP requests sent to unique catcher endp
 
 ## Project Structure
 
-- **backend/**:  
+- **request_catcher_backend/**:  
   Django REST Framework API that manages catcher endpoints and stores incoming requests.
 
-- **frontend/**:  
+- **request-catcher-frontend/**:  
   React application that allows users to create catcher URLs, view recent requests, and inspect request details.
 
 ## Features
