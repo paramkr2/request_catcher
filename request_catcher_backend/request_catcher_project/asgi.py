@@ -1,16 +1,22 @@
-"""
-ASGI config for request_catcher_project project.
 
-It exposes the ASGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/5.2/howto/deployment/asgi/
-"""
-
+# project/asgi.py
 import os
-
+import django
+from channels.routing import ProtocolTypeRouter, URLRouter
+from channels.auth import AuthMiddlewareStack
 from django.core.asgi import get_asgi_application
+from catcher.routing import websocket_urlpatterns
+
+print(">>> Starting ASGI application...")
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'request_catcher_project.settings')
+django.setup()
 
-application = get_asgi_application()
+application = ProtocolTypeRouter({
+    "http": get_asgi_application(),
+    "websocket": AuthMiddlewareStack(
+        URLRouter(websocket_urlpatterns)
+    ),
+})
+
+print(">>> ASGI router loaded")

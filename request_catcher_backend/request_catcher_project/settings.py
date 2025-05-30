@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "corsheaders",
     'rest_framework',
+    
     'catcher',
+    'channels',
+    
 ]
 
 MIDDLEWARE = [
@@ -60,10 +63,14 @@ REST_FRAMEWORK = {
     ]
 }
 
+
+'''
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    # add your frontend URLs here
 ]
+'''
+CORS_ALLOW_ALL_ORIGINS = True
+
 
 
 ROOT_URLCONF = 'request_catcher_project.urls'
@@ -83,7 +90,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'request_catcher_project.wsgi.application'
+
 
 
 # Database
@@ -138,4 +145,30 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+ASGI_APPLICATION = "request_catcher_project.asgi.application"
+WSGI_APPLICATION = 'request_catcher_project.wsgi.application'
+
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("redis://default:AgusRPQQUbGeIVshNcEgvHruvjYkBJzD@hopper.proxy.rlwy.net:17449")],
+        },
+    },
+}
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:5173",
+]
+
+'''
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
+'''
 
